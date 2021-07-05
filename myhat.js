@@ -19,7 +19,7 @@ class Field {
         this.field = field;
         this.characterX = 0;
         this.characterY = 0;
-        this.position = this.field[this.characterY][this.characterX];
+        
     }
 
     print() {
@@ -30,9 +30,11 @@ class Field {
 
     play() {
 
-        
 
-        while (position !== hat) {
+        while (this.field[this.characterY][this.characterX] !== hat) {
+            console.log(this.field);
+            console.log(this.field.length);
+            console.log(this.field[0].length);
             this.print();
             const move = prompt('What is your move?');
                 if (move === "right") {
@@ -47,15 +49,20 @@ class Field {
                     console.log('Let\'s keep it simple and stick to left, right, up or down. Thanks!');
                 }
 
-            
-                position = pathCharacter;
-
-                if (position === hole) {
-                    return console.log('You fell down a hole!');
-                } else if (position === hat) {
-                    return console.log('You found your hat!');
+                if (this.characterX === -1 || this.characterY === -1 || this.characterX === this.field[0].length || this.characterY === this.field.length) {
+                    return console.log('You ran off the field!');
                 } 
+               
+
+                if (this.field[this.characterY][this.characterX] === hole) {
+                    return console.log('You fell down a hole!');
+                } else if (this.field[this.characterY][this.characterX] === hat) {
+                    return console.log('You found your hat!');
+                } else {
+                    this.field[this.characterY][this.characterX] = pathCharacter;
+                }
             
+               
            
     
         }
@@ -90,7 +97,7 @@ class Field {
 
 
 
-  const newField = new Field(Field.generateField(10, 10, .1));
+  const newField = new Field(Field.generateField(10, 10, .3));
 
   newField.play();
 
